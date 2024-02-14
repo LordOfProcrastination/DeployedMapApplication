@@ -1,4 +1,5 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/mTyX4mC8)
+
 # KWS2100 Assignment 1
 
 <TODO: Put a badge to your deployed project here>
@@ -16,7 +17,7 @@ Everyone who requested to be assigned a team or who didn't respond to the team s
 
 ## Setup
 
-You *must* do the following correctly in your project:
+You _must_ do the following correctly in your project:
 
 - [ ] Create a project with `package.json`
 - [ ] Ensure that `.idea`, `node_modules` and any other temporary file is ignored from Git and not committed
@@ -36,4 +37,3 @@ The web application should show the civil defence regions of Norway as polygons 
 - [ ] The style of an emergency shelter should vary based on the feature properties of that shelter
 
 If you wish, you can add additional layers to the map
-
