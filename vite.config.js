@@ -1,4 +1,4 @@
 // vite.config.js
 export default {
-  base: "",
+  base: "/kws2100-publishing-a-map-application-StaffanPedersen",
 };
