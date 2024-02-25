@@ -55,7 +55,7 @@ export function CivilDefenceCheckbox({
   >();
   function handleClick(e: MapBrowserEvent<MouseEvent>) {
     const clickedDistrict = civilDefenceSource.getFeaturesAtCoordinate(
-      e.coordinate
+      e.coordinate,
     ) as CivilDefenceFeature[];
     if (clickedDistrict.length === 1) {
       setSelectedDistrict(clickedDistrict[0]);
