@@ -7,6 +7,7 @@ import "ol/ol.css";
 import { map, MapContext } from "../map/mapContext";
 import { Layer } from "ol/layer";
 import { EmergencyLayerCheckbox } from "../emergencyshelters/emergencyshelterCheckbox";
+import { CivilDefenceCheckbox } from "../civildefence/civilDefenceLayer";
 
 export function Application() {
   function handleFocusUser(e: React.MouseEvent) {
@@ -37,6 +38,7 @@ export function Application() {
           Focus on me
         </a>
         <EmergencyLayerCheckbox />
+        <CivilDefenceCheckbox />
       </nav>
       <main>
         <div ref={mapRef}></div>
