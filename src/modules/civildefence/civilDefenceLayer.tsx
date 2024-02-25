@@ -19,7 +19,7 @@ type CivilDefenceProperties = {
 };
 
 const civilDefenceSource = new VectorSource<CivilDefenceFeature>({
-  url: "kws2100-publishing-a-map-application-StaffanPedersen/public/civildefencedistricts.json",
+  url: "./civildefencedistricts.json",
 
   format: new GeoJSON(),
 });
@@ -56,7 +56,7 @@ export function CivilDefenceCheckbox({
   >();
   function handleClick(e: MapBrowserEvent<MouseEvent>) {
     const clickedDistrict = civilDefenceSource.getFeaturesAtCoordinate(
-      e.coordinate,
+      e.coordinate
     ) as CivilDefenceFeature[];
     if (clickedDistrict.length === 1) {
       setSelectedDistrict(clickedDistrict[0]);
