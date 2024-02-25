@@ -7,7 +7,7 @@ import "ol/ol.css";
 import { map, MapContext } from "../map/mapContext";
 import { Layer } from "ol/layer";
 import { CivilDefenceCheckbox } from "../civildefence/civilDefenceLayer";
-import { EmergencyLayerCheckbox } from "../emergencyShelters/emergencyShelterCheckbox";
+import { EmergencyLayerCheckbox } from "../emergencyshelters/emergencyshelterCheckbox";
 
 export function Application() {
   function handleFocusUser(e: React.MouseEvent) {
