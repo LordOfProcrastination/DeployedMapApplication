@@ -4,11 +4,17 @@ import { OSM } from "ol/source";
 
 import "./application.css";
 import "ol/ol.css";
-import { map, MapContext } from "../map/mapContext";
+import { MapContext } from "../map/mapContext";
 import { Layer } from "ol/layer";
 import { CivilDefenceCheckbox } from "../civildefence/civilDefenceLayer";
 import { EmergencyLayerCheckbox } from "../emergencyshelters/emergencyshelterCheckbox";
+import { useGeographic } from "ol/proj";
+import { Map, View } from "ol";
 
+useGeographic();
+const map = new Map({
+  view: new View({ center: [10, 59], zoom: 8 }),
+});
 export function Application() {
   function handleFocusUser(e: React.MouseEvent) {
     e.preventDefault();
@@ -38,7 +44,7 @@ export function Application() {
           Focus on me
         </a>
         <EmergencyLayerCheckbox />
-        <CivilDefenceCheckbox />
+        <CivilDefenceCheckbox map={map} setLayers={setLayers} />
       </nav>
       <main>
         <div ref={mapRef}></div>
