@@ -11,7 +11,7 @@ import { useLayer } from "../map/useLayer";
 
 const emergencyshelterLayer = new VectorLayer({
   source: new VectorSource({
-    url: "./kws2100-publishing-a-map-application-StaffanPedersen/emergencyshelters.json",
+    url: "./emergencyshelters.json",
     format: new GeoJSON(),
   }),
   style: emergencyshelterStyle,
