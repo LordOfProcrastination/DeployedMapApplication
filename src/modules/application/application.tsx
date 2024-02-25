@@ -29,7 +29,7 @@ export function Application() {
   return (
     <MapContext.Provider value={{ map, layers, setLayers }}>
       <header>
-        <h1>Kommune kart</h1>
+        <h1>Nødsituasjonskart</h1>
       </header>
       <nav>
         <a href={"#"} onClick={handleFocusUser}>
