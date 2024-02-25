@@ -19,7 +19,8 @@ type CivilDefenceProperties = {
 };
 
 const civilDefenceSource = new VectorSource<CivilDefenceFeature>({
-  url: "/kws2100-publishing-a-map-application-StaffanPedersen/public/civildefencedistricts.json",
+  url: "kws2100-publishing-a-map-application-StaffanPedersen/public/civildefencedistricts.json",
+
   format: new GeoJSON(),
 });
 
