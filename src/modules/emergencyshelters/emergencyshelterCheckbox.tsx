@@ -23,7 +23,7 @@ type EmergencyshelterProperties = {
   romnr: number;
 };
 
-type EmergencyshelterFeature = {
+export type EmergencyshelterFeature = {
   getProperties(): EmergencyshelterProperties;
 } & Feature<Point>;
 
