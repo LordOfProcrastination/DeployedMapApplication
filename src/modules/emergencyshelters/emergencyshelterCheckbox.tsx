@@ -13,7 +13,7 @@ export function EmergencyLayerCheckbox() {
           checked={checked}
           onChange={(e) => setChecked(e.target.checked)}
         />
-        Show emergencyshelters
+        Show emergency shelters
       </label>
     </div>
   );
