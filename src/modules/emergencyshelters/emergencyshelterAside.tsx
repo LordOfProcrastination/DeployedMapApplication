@@ -15,9 +15,9 @@ export function EmergencyShelterAside({ shelter, onClose, className }: Props) {
   return (
     <aside className={className}>
       <h2>{shelter?.adresse}</h2>
-      <p>Places: {shelter?.plasser}</p>
-      <p>Room Number: {shelter?.romnr}</p>
-      <button onClick={onClose}>Close</button>
+      <p>Plass: {shelter?.plasser}</p>
+      <p>Rom Nummer: {shelter?.romnr}</p>
+      <button onClick={onClose}>Lukk</button>
     </aside>
   );
 }

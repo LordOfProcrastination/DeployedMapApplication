@@ -46,7 +46,7 @@ export function Application() {
       </header>
       <nav>
         <a href={"#"} onClick={handleFocusUser}>
-          Focus on me
+          Min posisjon
         </a>
         <EmergencyLayerCheckbox setSelectedShelter={setSelectedShelter} />
         <CivilDefenceCheckbox map={map} setLayers={setLayers} />
