@@ -10,13 +10,18 @@ import { CivilDefenceCheckbox } from "../civildefence/civilDefenceLayer";
 import { EmergencyLayerCheckbox } from "../emergencyshelters/emergencyshelterCheckbox";
 import { useGeographic } from "ol/proj";
 import { Map, View } from "ol";
-import { EmergencyshelterAside } from "../emergencyshelters/emergencyshelterAside";
+import { EmergencyShelterAside } from "../emergencyshelters/emergencyshelterAside";
+import { EmergencyshelterProperties } from "../emergencyshelters/emergencyshelterCheckbox";
 
 useGeographic();
 const map = new Map({
   view: new View({ center: [10, 59], zoom: 8 }),
 });
 export function Application() {
+  const [selectedShelter, setSelectedShelter] =
+    useState<EmergencyshelterProperties | null>(null);
+
+
   function handleFocusUser(e: React.MouseEvent) {
     e.preventDefault();
     navigator.geolocation.getCurrentPosition((pos) => {
@@ -49,7 +54,10 @@ export function Application() {
       </nav>
       <main>
         <div ref={mapRef}></div>
-        <EmergencyshelterAside />
+        <EmergencyShelterAside
+          shelter={selectedShelter}
+          onClose={() => setSelectedShelter(null)}
+        />
       </main>
     </MapContext.Provider>
   );

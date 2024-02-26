@@ -8,6 +8,7 @@ import { Point } from "ol/geom";
 import { FeatureLike } from "ol/Feature";
 import { Circle, Fill, Stroke, Style, Text } from "ol/style";
 import { useLayer } from "../map/useLayer";
+import { EmergencyShelterAside } from "./emergencyshelterAside";
 
 const emergencyshelterLayer = new VectorLayer({
   className: "emergencyshelters",
@@ -18,7 +19,7 @@ const emergencyshelterLayer = new VectorLayer({
   style: emergencyshelterStyle,
 });
 
-type EmergencyshelterProperties = {
+export type EmergencyshelterProperties = {
   adresse: String;
   plasser: number;
   romnr: number;
@@ -64,10 +65,11 @@ function activeEmergencyshelterStyle(f: FeatureLike, resolution: number) {
         : undefined,
   });
 }
-
 export function EmergencyLayerCheckbox() {
   const { map } = useContext(MapContext);
   const [checked, setChecked] = useState(false);
+  const [selectedShelter, setSelectedShelter] =
+    useState<EmergencyshelterProperties | null>(null);
 
   const [activeFeature, setActiveFeature] = useState<EmergencyshelterFeature>();
 
@@ -81,10 +83,14 @@ export function EmergencyLayerCheckbox() {
       hitTolerance: 5,
       layerFilter: (l) => l === emergencyshelterLayer,
     });
-    if (features.length === 1) {
+    if (features.length > 0) {
       setActiveFeature(features[0] as EmergencyshelterFeature);
+      setSelectedShelter(
+        (features[0] as EmergencyshelterFeature).getProperties(),
+      );
     } else {
       setActiveFeature(undefined);
+      setSelectedShelter(null);
     }
   }
 
@@ -97,9 +103,9 @@ export function EmergencyLayerCheckbox() {
 
   useEffect(() => {
     if (checked) {
-      map?.on("pointermove", handlePointerMove);
+      map?.on("click", handlePointerMove);
     }
-    return () => map?.un("pointermove", handlePointerMove);
+    return () => map?.un("click", handlePointerMove);
   }, [checked]);
 
   return (
@@ -112,6 +118,12 @@ export function EmergencyLayerCheckbox() {
         />
         {checked ? "Hide" : "Show"} emergency shelters
       </label>
+      {selectedShelter && (
+        <EmergencyShelterAside
+          shelter={selectedShelter}
+          onClose={() => setSelectedShelter(null)}
+        />
+      )}
     </div>
   );
 }

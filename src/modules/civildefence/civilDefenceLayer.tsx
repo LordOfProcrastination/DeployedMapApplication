@@ -14,8 +14,7 @@ import { GeoJSON } from "ol/format";
 import { Feature, Map, MapBrowserEvent, Overlay } from "ol";
 import { Polygon } from "ol/geom";
 import { FeatureLike } from "ol/Feature";
-import { Fill, Stroke, Style, Text } from "ol/style";
-import { reset } from "ol/transform";
+import { Fill, Stroke, Style } from "ol/style";
 type CivilDefenceProperties = {
   navn: string;
 };
@@ -35,8 +34,6 @@ const civilDefenceLayer = new VectorLayer({
   source: civilDefenceSource,
   className: "districts",
   style: (feature) => {
-    const district = feature as CivilDefenceFeature;
-    const { districtname } = district.getProperties();
     return new Style({
       stroke: new Stroke({
         color: "blue",
@@ -75,7 +72,6 @@ export function CivilDefenceCheckbox({
   setLayers: Dispatch<SetStateAction<Layer[]>>;
 }) {
   const [checked, setChecked] = useState(false);
-  const [activeFeature, setActiveFeature] = useState<CivilDefenceFeature>();
 
   //Overlay text
   const overlay = useMemo(
@@ -125,7 +121,7 @@ export function CivilDefenceCheckbox({
     );
   }
   useEffect(() => {
-    let hoveredDistrict = null;
+
     if (checked) {
       setLayers((old) => [...old, civilDefenceLayer]);
       map.on("pointermove", handlePointerMove);
