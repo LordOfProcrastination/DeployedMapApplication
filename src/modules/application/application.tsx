@@ -10,6 +10,7 @@ import { CivilDefenceCheckbox } from "../civildefence/civilDefenceLayer";
 import { EmergencyLayerCheckbox } from "../emergencyshelters/emergencyshelterCheckbox";
 import { useGeographic } from "ol/proj";
 import { Map, View } from "ol";
+import { EmergencyshelterAside } from "../emergencyshelters/emergencyshelterAside";
 
 useGeographic();
 const map = new Map({
@@ -48,7 +49,7 @@ export function Application() {
       </nav>
       <main>
         <div ref={mapRef}></div>
-        <EmergencyLayerCheckbox />
+        <EmergencyshelterAside />
       </main>
     </MapContext.Provider>
   );
