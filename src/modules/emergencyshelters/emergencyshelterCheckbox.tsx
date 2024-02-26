@@ -46,6 +46,9 @@ function activeEmergencyshelterStyle(f: FeatureLike, resolution: number) {
   return new Style({
     image: new Circle({
       stroke: new Stroke({ color: "red", width: 3 }),
+      fill: new Fill({
+        color: "red",
+      }),
       radius: radius,
     }),
     text:
