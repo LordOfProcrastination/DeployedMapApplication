@@ -121,7 +121,6 @@ export function CivilDefenceCheckbox({
     );
   }
   useEffect(() => {
-
     if (checked) {
       setLayers((old) => [...old, civilDefenceLayer]);
       map.on("pointermove", handlePointerMove);

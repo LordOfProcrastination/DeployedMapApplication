@@ -21,7 +21,6 @@ export function Application() {
   const [selectedShelter, setSelectedShelter] =
     useState<EmergencyshelterProperties | null>(null);
 
-
   function handleFocusUser(e: React.MouseEvent) {
     e.preventDefault();
     navigator.geolocation.getCurrentPosition((pos) => {
