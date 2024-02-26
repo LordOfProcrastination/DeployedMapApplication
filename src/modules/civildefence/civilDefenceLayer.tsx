@@ -15,6 +15,7 @@ import { Feature, Map, MapBrowserEvent, Overlay } from "ol";
 import { Polygon } from "ol/geom";
 import { FeatureLike } from "ol/Feature";
 import { Fill, Stroke, Style, Text } from "ol/style";
+import { reset } from "ol/transform";
 type CivilDefenceProperties = {
   navn: string;
 };
@@ -38,7 +39,7 @@ const civilDefenceLayer = new VectorLayer({
     const { districtname } = district.getProperties();
     return new Style({
       stroke: new Stroke({
-        color: "blue",
+        color: "rgba(135, 206, 235)",
         width: 1,
       }),
       fill: new Fill({
@@ -47,6 +48,24 @@ const civilDefenceLayer = new VectorLayer({
     });
   },
 });
+function activeCivilDefenceStyle(f: FeatureLike) {
+  const feature = f as CivilDefenceFeature;
+  const school = feature.getProperties();
+  return new Style({
+    stroke: new Stroke({
+      color: "rgba(74, 181, 127)",
+      width: 3,
+    }),
+    fill: new Fill({
+      color: "rgba(133, 234, 184, 0.2)",
+    }),
+  });
+}
+function resetFeatureStyles() {
+  civilDefenceSource.getFeatures().forEach((feature) => {
+    feature.setStyle(undefined);
+  });
+}
 
 export function CivilDefenceCheckbox({
   map,
@@ -56,6 +75,9 @@ export function CivilDefenceCheckbox({
   setLayers: Dispatch<SetStateAction<Layer[]>>;
 }) {
   const [checked, setChecked] = useState(false);
+  const [activeFeature, setActiveFeature] = useState<CivilDefenceFeature>();
+
+  //Overlay text
   const overlay = useMemo(
     () =>
       new Overlay({
@@ -64,7 +86,6 @@ export function CivilDefenceCheckbox({
     [],
   );
   const overlayRef = useRef() as MutableRefObject<HTMLDivElement>;
-
   useEffect(() => {
     overlay.setElement(overlayRef.current);
     map.addOverlay(overlay);
@@ -76,30 +97,34 @@ export function CivilDefenceCheckbox({
   const [selectedDistrict, setSelectedDistrict] = useState<
     CivilDefenceFeature | undefined
   >();
-  function handleClick(e: MapBrowserEvent<MouseEvent>) {
-    const clickedDistrict = civilDefenceSource.getFeaturesAtCoordinate(
-      e.coordinate,
-    ) as CivilDefenceFeature[];
-    if (clickedDistrict.length === 1) {
-      setSelectedDistrict(clickedDistrict[0]);
-      overlay.setPosition(e.coordinate);
-    } else {
-      setSelectedDistrict(undefined);
-      overlay.setPosition(undefined);
-    }
-  }
 
+  function handlePointerMove(e: MapBrowserEvent<MouseEvent>) {
+    resetFeatureStyles();
+    map.forEachFeatureAtPixel(
+      e.pixel,
+      (feature) => {
+        if (feature.getGeometry()?.getType() === "Polygon") {
+          const setActiveFeature = feature as CivilDefenceFeature;
+          setActiveFeature.setStyle(activeCivilDefenceStyle(setActiveFeature));
+          return true;
+        }
+      },
+      {
+        layerFilter: (layer) => layer === civilDefenceLayer,
+      },
+    );
+  }
   useEffect(() => {
     let hoveredDistrict = null;
     if (checked) {
       setLayers((old) => [...old, civilDefenceLayer]);
-      map.on("pointermove", handleClick);
+      map.on("pointermove", handlePointerMove);
     } else {
       overlay.setPosition(undefined);
       setSelectedDistrict(undefined);
     }
     return () => {
-      map.un("pointermove", handleClick);
+      map.un("pointermove", handlePointerMove);
       setLayers((old) => old.filter((l) => l !== civilDefenceLayer));
       new Style();
     };
