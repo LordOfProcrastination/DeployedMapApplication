@@ -16,16 +16,16 @@ interface EmergencyshelterProperties {
 function useEmergencyshelterFeatures() {
   const { map, layers } = useContext(MapContext);
   const layer = layers.find(
-    (l) => l.getClassName() === "emergencyshelters"
+    (l) => l.getClassName() === "emergencyshelters",
   ) as EmergencyshelterVectorLayer;
   const [features, setFeatures] = useState<EmergencyshelterFeature[]>();
   const [viewExtent, setViewExtent] = useState(
-    map.getView().getViewStateAndExtent().extent
+    map.getView().getViewStateAndExtent().extent,
   );
   const visibleFeatures = useMemo(
     () =>
       features?.filter((f) => f.getGeometry()?.intersectsExtent(viewExtent)),
-    [features, viewExtent]
+    [features, viewExtent],
   );
 
   function handleSourceChange() {
