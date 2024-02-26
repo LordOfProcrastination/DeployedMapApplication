@@ -39,7 +39,7 @@ const civilDefenceLayer = new VectorLayer({
     const { districtname } = district.getProperties();
     return new Style({
       stroke: new Stroke({
-        color: "rgba(135, 206, 235)",
+        color: "blue",
         width: 1,
       }),
       fill: new Fill({
@@ -83,7 +83,7 @@ export function CivilDefenceCheckbox({
       new Overlay({
         offset: [10, -10], // Offset the overlay 10px to the right and 10px up
       }),
-    [],
+    []
   );
   const overlayRef = useRef() as MutableRefObject<HTMLDivElement>;
   useEffect(() => {
@@ -99,6 +99,16 @@ export function CivilDefenceCheckbox({
   >();
 
   function handlePointerMove(e: MapBrowserEvent<MouseEvent>) {
+    const hoveredDistrict = civilDefenceSource.getFeaturesAtCoordinate(
+      e.coordinate
+    ) as CivilDefenceFeature[];
+    if (hoveredDistrict.length === 1) {
+      setSelectedDistrict(hoveredDistrict[0]);
+      overlay.setPosition(e.coordinate);
+    } else {
+      setSelectedDistrict(undefined);
+      overlay.setPosition(undefined);
+    }
     resetFeatureStyles();
     map.forEachFeatureAtPixel(
       e.pixel,
@@ -111,7 +121,7 @@ export function CivilDefenceCheckbox({
       },
       {
         layerFilter: (layer) => layer === civilDefenceLayer,
-      },
+      }
     );
   }
   useEffect(() => {
@@ -138,7 +148,7 @@ export function CivilDefenceCheckbox({
           checked={checked}
           onChange={(e) => setChecked(e.target.checked)}
         />
-        {checked ? "Hide" : "Show"} Civil Defence layer
+        {checked ? "Skjul" : "Vis"} Sivilforsvarsdistrikter
       </label>
       <div ref={overlayRef} className={"civilDefence-overlay"}>
         {selectedDistrict && (
