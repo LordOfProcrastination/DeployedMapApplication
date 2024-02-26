@@ -23,7 +23,7 @@ type EmergencyshelterProperties = {
   romnr: number;
 };
 
-type EmergencyshelterFeature = {
+export type EmergencyshelterFeature = {
   getProperties(): EmergencyshelterProperties;
 } & Feature<Point>;
 
@@ -106,7 +106,7 @@ export function EmergencyLayerCheckbox() {
           checked={checked}
           onChange={(e) => setChecked(e.target.checked)}
         />
-        Show emergency shelters
+        {checked ? "Hide" : "Show"} emergency shelters
       </label>
     </div>
   );

@@ -48,6 +48,7 @@ export function Application() {
       </nav>
       <main>
         <div ref={mapRef}></div>
+        <EmergencyLayerCheckbox />
       </main>
     </MapContext.Provider>
   );
