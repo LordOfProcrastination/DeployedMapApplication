@@ -83,7 +83,7 @@ export function CivilDefenceCheckbox({
       new Overlay({
         offset: [10, -10], // Offset the overlay 10px to the right and 10px up
       }),
-    []
+    [],
   );
   const overlayRef = useRef() as MutableRefObject<HTMLDivElement>;
   useEffect(() => {
@@ -100,7 +100,7 @@ export function CivilDefenceCheckbox({
 
   function handlePointerMove(e: MapBrowserEvent<MouseEvent>) {
     const hoveredDistrict = civilDefenceSource.getFeaturesAtCoordinate(
-      e.coordinate
+      e.coordinate,
     ) as CivilDefenceFeature[];
     if (hoveredDistrict.length === 1) {
       setSelectedDistrict(hoveredDistrict[0]);
@@ -121,7 +121,7 @@ export function CivilDefenceCheckbox({
       },
       {
         layerFilter: (layer) => layer === civilDefenceLayer,
-      }
+      },
     );
   }
   useEffect(() => {
