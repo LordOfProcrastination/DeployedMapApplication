@@ -61,7 +61,7 @@ export function CivilDefenceCheckbox({
       new Overlay({
         offset: [10, -10], // Offset the overlay 10px to the right and 10px up
       }),
-    []
+    [],
   );
   const overlayRef = useRef() as MutableRefObject<HTMLDivElement>;
 
@@ -78,7 +78,7 @@ export function CivilDefenceCheckbox({
   >();
   function handleClick(e: MapBrowserEvent<MouseEvent>) {
     const clickedDistrict = civilDefenceSource.getFeaturesAtCoordinate(
-      e.coordinate
+      e.coordinate,
     ) as CivilDefenceFeature[];
     if (clickedDistrict.length === 1) {
       setSelectedDistrict(clickedDistrict[0]);
