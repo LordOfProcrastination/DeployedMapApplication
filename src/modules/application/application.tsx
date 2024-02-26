@@ -48,15 +48,18 @@ export function Application() {
         <a href={"#"} onClick={handleFocusUser}>
           Focus on me
         </a>
-        <EmergencyLayerCheckbox />
+        <EmergencyLayerCheckbox setSelectedShelter={setSelectedShelter} />
         <CivilDefenceCheckbox map={map} setLayers={setLayers} />
       </nav>
       <main>
         <div ref={mapRef}></div>
-        <EmergencyShelterAside
-          shelter={selectedShelter}
-          onClose={() => setSelectedShelter(null)}
-        />
+        {selectedShelter && (
+          <EmergencyShelterAside
+            className={selectedShelter ? "visible" : ""}
+            shelter={selectedShelter}
+            onClose={() => setSelectedShelter(null)}
+          />
+        )}
       </main>
     </MapContext.Provider>
   );

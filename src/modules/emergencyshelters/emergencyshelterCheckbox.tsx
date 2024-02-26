@@ -8,7 +8,6 @@ import { Point } from "ol/geom";
 import { FeatureLike } from "ol/Feature";
 import { Circle, Fill, Stroke, Style, Text } from "ol/style";
 import { useLayer } from "../map/useLayer";
-import { EmergencyShelterAside } from "./emergencyshelterAside";
 
 const emergencyshelterLayer = new VectorLayer({
   className: "emergencyshelters",
@@ -65,16 +64,19 @@ function activeEmergencyshelterStyle(f: FeatureLike, resolution: number) {
         : undefined,
   });
 }
-export function EmergencyLayerCheckbox() {
+
+export function EmergencyLayerCheckbox({
+  setSelectedShelter,
+}: {
+  setSelectedShelter: (shelter: EmergencyshelterProperties | null) => void;
+}) {
   const { map } = useContext(MapContext);
   const [checked, setChecked] = useState(false);
-  const [selectedShelter, setSelectedShelter] =
-    useState<EmergencyshelterProperties | null>(null);
-
   const [activeFeature, setActiveFeature] = useState<EmergencyshelterFeature>();
 
   function handlePointerMove(e: MapBrowserEvent<MouseEvent>) {
     const resolution = map.getView().getResolution();
+
     if (!resolution || resolution > 100) {
       return;
     }
@@ -118,12 +120,6 @@ export function EmergencyLayerCheckbox() {
         />
         {checked ? "Hide" : "Show"} emergency shelters
       </label>
-      {selectedShelter && (
-        <EmergencyShelterAside
-          shelter={selectedShelter}
-          onClose={() => setSelectedShelter(null)}
-        />
-      )}
     </div>
   );
 }
