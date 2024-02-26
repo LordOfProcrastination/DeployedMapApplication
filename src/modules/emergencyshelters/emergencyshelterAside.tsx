@@ -16,16 +16,16 @@ interface EmergencyshelterProperties {
 function useEmergencyshelterFeatures() {
   const { map, layers } = useContext(MapContext);
   const layer = layers.find(
-    (l) => l.getClassName() === "emergency shelters",
+    (l) => l.getClassName() === "emergencyshelters"
   ) as EmergencyshelterVectorLayer;
   const [features, setFeatures] = useState<EmergencyshelterFeature[]>();
   const [viewExtent, setViewExtent] = useState(
-    map.getView().getViewStateAndExtent().extent,
+    map.getView().getViewStateAndExtent().extent
   );
   const visibleFeatures = useMemo(
     () =>
       features?.filter((f) => f.getGeometry()?.intersectsExtent(viewExtent)),
-    [features, viewExtent],
+    [features, viewExtent]
   );
 
   function handleSourceChange() {
@@ -56,7 +56,10 @@ export function EmergencyshelterAside() {
         <h2>Emergency Shelters</h2>
         <ul>
           {visibleFeatures?.map((k) => (
-            <li>{k.getProperties().adresse.toString()}</li>
+            <li>
+              {k.getProperties().adresse.toString()} Antall plasser:
+              {k.getProperties().plasser}
+            </li>
           ))}
         </ul>
       </div>

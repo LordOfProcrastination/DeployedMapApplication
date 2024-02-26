@@ -10,6 +10,7 @@ import { Circle, Fill, Stroke, Style, Text } from "ol/style";
 import { useLayer } from "../map/useLayer";
 
 const emergencyshelterLayer = new VectorLayer({
+  className: "emergencyshelters",
   source: new VectorSource({
     url: "./emergencyshelters.json",
     format: new GeoJSON(),
