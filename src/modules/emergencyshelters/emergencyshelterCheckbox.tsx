@@ -10,6 +10,7 @@ import { Circle, Fill, Stroke, Style, Text } from "ol/style";
 import { useLayer } from "../map/useLayer";
 
 const emergencyshelterLayer = new VectorLayer({
+  className: "emergencyshelters",
   source: new VectorSource({
     url: "./emergencyshelters.json",
     format: new GeoJSON(),
@@ -46,6 +47,9 @@ function activeEmergencyshelterStyle(f: FeatureLike, resolution: number) {
   return new Style({
     image: new Circle({
       stroke: new Stroke({ color: "red", width: 3 }),
+      fill: new Fill({
+        color: "red",
+      }),
       radius: radius,
     }),
     text:
