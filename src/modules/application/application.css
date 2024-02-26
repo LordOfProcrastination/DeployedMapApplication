@@ -55,3 +55,13 @@ main aside > * {
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+.emergency-shelter-aside {
+  display: flex;
+  flex-direction: column;
+}
+.emergency-shelter-aside p,
+h2 {
+  margin-bottom: 2rem;
+  border-bottom: solid;
+  padding-bottom: 0.5rem;
+}

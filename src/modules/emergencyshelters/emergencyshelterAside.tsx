@@ -14,10 +14,12 @@ export type Props = {
 export function EmergencyShelterAside({ shelter, onClose, className }: Props) {
   return (
     <aside className={className}>
-      <h2>{shelter?.adresse}</h2>
-      <p>Plass: {shelter?.plasser}</p>
-      <p>Rom Nummer: {shelter?.romnr}</p>
-      <button onClick={onClose}>Lukk</button>
+      <div className="emergency-shelter-aside">
+        <h2>{shelter?.adresse}</h2>
+        <p>Plass: {shelter?.plasser}</p>
+        <p>Rom Nummer: {shelter?.romnr}</p>
+        <button onClick={onClose}>Lukk</button>
+      </div>
     </aside>
   );
 }
