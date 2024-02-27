@@ -31,8 +31,7 @@ export type EmergencyshelterFeature = {
 function emergencyshelterStyle(f: FeatureLike) {
   const feature = f as EmergencyshelterFeature;
   const emergencyshelter = feature.getProperties();
-  const radius =
-    3 + (emergencyshelter.plasser || emergencyshelter.plasser) / 450;
+  const radius = 3 + (emergencyshelter.plasser || 0) / 450;
   return new Style({
     image: new Circle({
       stroke: new Stroke({ color: "red", width: 1 }),
@@ -44,8 +43,7 @@ function emergencyshelterStyle(f: FeatureLike) {
 function activeEmergencyshelterStyle(f: FeatureLike, resolution: number) {
   const feature = f as EmergencyshelterFeature;
   const emergencyshelter = feature.getProperties();
-  const radius =
-    3 + (emergencyshelter.plasser || emergencyshelter.plasser) / 450;
+  const radius = 3 + (emergencyshelter.plasser || 0) / 50;
   return new Style({
     image: new Circle({
       stroke: new Stroke({ color: "red", width: 3 }),
@@ -90,7 +88,7 @@ export function EmergencyLayerCheckbox({
     if (features.length > 0) {
       setActiveFeature(features[0] as EmergencyshelterFeature);
       setSelectedShelter(
-        (features[0] as EmergencyshelterFeature).getProperties(),
+        (features[0] as EmergencyshelterFeature).getProperties()
       );
     } else {
       setActiveFeature(undefined);
