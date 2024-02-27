@@ -31,7 +31,7 @@ export type EmergencyshelterFeature = {
 function emergencyshelterStyle(f: FeatureLike) {
   const feature = f as EmergencyshelterFeature;
   const emergencyshelter = feature.getProperties();
-  const radius = 3 + (emergencyshelter.plasser || 0) / 450;
+  const radius = 3 + (emergencyshelter.plasser || 0) / 700;
   return new Style({
     image: new Circle({
       stroke: new Stroke({ color: "red", width: 1 }),
@@ -43,7 +43,7 @@ function emergencyshelterStyle(f: FeatureLike) {
 function activeEmergencyshelterStyle(f: FeatureLike, resolution: number) {
   const feature = f as EmergencyshelterFeature;
   const emergencyshelter = feature.getProperties();
-  const radius = 3 + (emergencyshelter.plasser || 0) / 50;
+  const radius = 3 + (emergencyshelter.plasser || 0) / 700;
   return new Style({
     image: new Circle({
       stroke: new Stroke({ color: "red", width: 3 }),
@@ -74,7 +74,7 @@ export function EmergencyLayerCheckbox({
   const [checked, setChecked] = useState(false);
   const [activeFeature, setActiveFeature] = useState<EmergencyshelterFeature>();
 
-  function handlePointerMove(e: MapBrowserEvent<MouseEvent>) {
+  function handleClick(e: MapBrowserEvent<MouseEvent>) {
     const resolution = map.getView().getResolution();
 
     if (!resolution || resolution > 100) {
@@ -96,6 +96,30 @@ export function EmergencyLayerCheckbox({
     }
   }
 
+  function handlePointerMove(e: MapBrowserEvent<MouseEvent>) {
+    const resolution = map.getView().getResolution();
+    if (!resolution || resolution > 100) {
+      return;
+    }
+    const features: FeatureLike[] = [];
+    map.forEachFeatureAtPixel(e.pixel, (f) => features.push(f), {
+      hitTolerance: 5,
+      layerFilter: (l) => l === emergencyshelterLayer,
+    });
+    if (features.length === 1) {
+      setActiveFeature(features[0] as EmergencyshelterFeature);
+    } else {
+      setActiveFeature(undefined);
+    }
+  }
+
+  useEffect(() => {
+    if (checked) {
+      map?.on("pointermove", handlePointerMove);
+    }
+    return () => map?.un("pointermove", handlePointerMove);
+  }, [checked]);
+
   useEffect(() => {
     activeFeature?.setStyle(activeEmergencyshelterStyle);
     return () => activeFeature?.setStyle(undefined);
@@ -105,9 +129,9 @@ export function EmergencyLayerCheckbox({
 
   useEffect(() => {
     if (checked) {
-      map?.on("click", handlePointerMove);
+      map?.on("click", handleClick);
     }
-    return () => map?.un("click", handlePointerMove);
+    return () => map?.un("click", handleClick);
   }, [checked]);
 
   return (
