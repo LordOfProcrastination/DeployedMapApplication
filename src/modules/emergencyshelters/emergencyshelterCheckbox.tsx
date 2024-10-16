@@ -35,6 +35,9 @@ function emergencyshelterStyle(f: FeatureLike) {
   return new Style({
     image: new Circle({
       stroke: new Stroke({ color: "red", width: 1 }),
+      fill: new Fill({
+        color: "lightcoral",
+      }),
       radius: radius,
     }),
   });
@@ -88,7 +91,7 @@ export function EmergencyLayerCheckbox({
     if (features.length > 0) {
       setActiveFeature(features[0] as EmergencyshelterFeature);
       setSelectedShelter(
-        (features[0] as EmergencyshelterFeature).getProperties(),
+        (features[0] as EmergencyshelterFeature).getProperties()
       );
     } else {
       setActiveFeature(undefined);
