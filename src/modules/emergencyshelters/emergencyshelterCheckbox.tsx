@@ -91,7 +91,7 @@ export function EmergencyLayerCheckbox({
     if (features.length > 0) {
       setActiveFeature(features[0] as EmergencyshelterFeature);
       setSelectedShelter(
-        (features[0] as EmergencyshelterFeature).getProperties()
+        (features[0] as EmergencyshelterFeature).getProperties(),
       );
     } else {
       setActiveFeature(undefined);
